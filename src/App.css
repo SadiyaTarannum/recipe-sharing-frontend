@@ -36,3 +36,88 @@
     transform: rotate(360deg);
   }
 }
+.create-recipe-container {
+  min-height: 100vh;
+  padding-top: 50px;
+}
+
+.create-recipe-box {
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
+}
+
+.form-heading {
+  color: #dc3545; /* Red */
+  font-weight: bold;
+}
+
+.img-preview {
+  max-width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+}
+
+.create-btn {
+  background: #28a745; /* Green */
+  font-size: 18px;
+  font-weight: bold;
+}
+.recipe-image {
+  width: 200px; /* Set a fixed width */
+  height: 150px; /* Set a fixed height */
+  object-fit: cover; /* Ensures images fill the area without distortion */
+  border-radius: 10px; /* Optional: for rounded corners */
+}
+.recipe-card {
+  width: 300px; /* Adjust card width */
+  text-align: center;
+}
+
+.recipe-image {
+  width: 100%;  /* Ensures images fill the container */
+  height: 200px; /* Fixed height for uniformity */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  border-radius: 10px; /* Optional: Adds rounded corners */
+}
+.recipe-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.recipe-card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+}
+
+.recipe-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.recipe-detail-container {
+  padding: 20px;
+}
+
+.recipe-detail-container img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+
+
