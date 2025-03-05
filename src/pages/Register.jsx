@@ -19,7 +19,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/register", user);
+      const response = await axios.post("https://recipe-backend-5apy.onrender.com/api/auth/register", user);
       setMessage(response.data.message);
       if (response.data.success) {
         navigate("/login"); // Redirect to login after registration

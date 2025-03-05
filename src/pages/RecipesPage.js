@@ -14,7 +14,7 @@ const RecipesPage = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/recipes");
+        const response = await axios.get("https://recipe-backend-5apy.onrender.com/api/recipes");
         setRecipes(response.data);
       } catch (error) {
         setError("Failed to fetch recipes. Please try again.");

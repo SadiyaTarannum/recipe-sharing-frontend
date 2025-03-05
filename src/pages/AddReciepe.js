@@ -42,7 +42,7 @@ function CreateRecipe() {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/api/recipes", recipeData, {
+      const response = await axios.post("https://recipe-backend-5apy.onrender.com/api/recipes", recipeData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Include token in headers

@@ -17,7 +17,7 @@ const Login = () => {
     try {
       console.log("🔄 Attempting Login:", { email, password });
 
-      const response = await axios.post("http://localhost:5000/api/auth/login", {
+      const response = await axios.post("https://recipe-backend-5apy.onrender.com/api/auth/login", {
         email,
         password,
       });

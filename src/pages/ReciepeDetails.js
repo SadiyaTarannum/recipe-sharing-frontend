@@ -11,7 +11,7 @@ const RecipeDetails = () => {
     const fetchRecipe = async () => {
       try {
         console.log(`Fetching recipe: ${id}`); // Debugging
-        const response = await fetch(`http://localhost:5000/api/recipes/${id}`);
+        const response = await fetch(`https://recipe-backend-5apy.onrender.com/api/recipes/${id}`);
 
         if (!response.ok) {
           throw new Error("Recipe not found");
