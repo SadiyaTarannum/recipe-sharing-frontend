@@ -13,13 +13,6 @@ const Navbar = () => {
     }
   }, []);
 
-  const handleLogin = () => {
-    // You can handle login logic here and store user in localStorage
-    const dummyUser = { name: "John Doe", email: "john@example.com" };
-    localStorage.setItem("user", JSON.stringify(dummyUser)); // Store user in localStorage
-    setUser(dummyUser); // Update the user state
-  };
-
   const handleLogout = () => {
     // Clear user data from localStorage and state
     localStorage.removeItem("user");
@@ -30,15 +23,17 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow">
       <div className="container">
         <Link className="navbar-brand fw-bold" to="/">🍽️ Recipe Hub</Link>
+
         <div>
-          <Link className="btn btn-warning me-2" to="/add">➕ Add Recipe</Link>
+          <Link className="btn btn-success me-2" to="/recipes">📖 All Recipes</Link> 
           {user ? (
             <>
+              <Link className="btn btn-warning me-2" to="/add">➕ Add Recipe</Link>
               <button className="btn btn-light" onClick={handleLogout}>Logout</button>
             </>
           ) : (
             <>
-              <Link className="btn btn-light mx-2" to="/login" onClick={handleLogin}>🔑 Login</Link>
+              <Link className="btn btn-light mx-2" to="/login">🔑 Login</Link>
               <Link className="btn btn-warning" to="/register">📝 Register</Link>
             </>
           )}

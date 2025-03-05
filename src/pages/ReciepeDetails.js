@@ -1,36 +1,51 @@
-import { useLocation, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-const RecipeDetails = ({ isAuthenticated }) => {  // Receive auth status as a prop
-  const location = useLocation();
-  const recipe = location.state?.recipe;
+const RecipeDetails = () => {
+  const { id } = useParams(); // Get Recipe ID from URL
+  const [recipe, setRecipe] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!recipe) {
-    return <h2 className="text-center">Recipe not found</h2>;
-  }
+  useEffect(() => {
+    const fetchRecipe = async () => {
+      try {
+        console.log(`Fetching recipe: ${id}`); // Debugging
+        const response = await fetch(`http://localhost:5000/api/recipes/${id}`);
+
+        if (!response.ok) {
+          throw new Error("Recipe not found");
+        }
+
+        const data = await response.json();
+        console.log("Recipe Data:", data); // Debugging
+        setRecipe(data);
+      } catch (err) {
+        console.error("Error fetching recipe:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecipe();
+  }, [id]);
+
+  if (loading) return <p className="text-center">Loading recipe details...</p>;
+  if (error) return <p className="text-center text-danger">{error}</p>;
 
   return (
     <div className="container mt-4">
-      <h2 className="text-center text-primary">{recipe.title}</h2>
-      <img src={recipe.image} className="img-fluid d-block mx-auto" alt={recipe.title} />
-      <p className="mt-3">{recipe.description}</p>
-      <h5>Ingredients:</h5>
-      <ul>{recipe.ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)}</ul>
-      <h5>Steps:</h5>
-      <ol>{recipe.steps.map((step, index) => <li key={index}>{step}</li>)}</ol>
-
-      {/* View Recipe Button */}
-      <div className="text-center mt-3">
-        <Link to={`/recipe/${recipe.id}`} state={{ recipe }} className="btn btn-success">
-          🍽 View Recipe
-        </Link>
-        
-        {/* Show Edit Button Only If Logged In */}
-        {isAuthenticated && (
-          <Link to={`/edit/${recipe.id}`} state={{ recipe }} className="btn btn-warning mx-2">
-            ✏️ Edit Recipe
-          </Link>
-        )}
-      </div>
+      <h2 className="text-center">{recipe.title}</h2>
+      <h5>Category: {recipe.category}</h5>
+      <h6>Ingredients:</h6>
+      <ul>
+        {recipe.ingredients?.map((ing, index) => (
+          <li key={index}>{ing}</li>
+        ))}
+      </ul>
+      <h6>Instructions:</h6>
+      <p>{recipe.instructions}</p>
     </div>
   );
 };

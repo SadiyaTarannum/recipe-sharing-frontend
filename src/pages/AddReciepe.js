@@ -19,45 +19,61 @@ function CreateRecipe() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("🚀 Submitting Recipe...");
+
     const ingredientsArray = ingredients.split(",").map((item) => item.trim());
-    const user = JSON.parse(localStorage.getItem("user"));
+
+    // Retrieve token from localStorage
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("⚠️ You are not logged in. Please log in to create a recipe.");
+      return;
+    }
 
     const recipeData = {
       title,
       description,
+      category: "Uncategorized", // ✅ Default category added
       ingredients: ingredientsArray,
       instructions,
       time,
       image,
-      user: user?._id,
     };
 
     try {
-      await axios.post("http://localhost:5000/api/recipes", recipeData);
-      alert("Recipe created successfully!");
-      navigate("/");
+      const response = await axios.post("http://localhost:5000/api/recipes", recipeData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include token in headers
+        },
+      });
+
+      console.log("✅ Recipe Created:", response.data);
+      alert("🎉 Recipe created successfully!");
+      navigate("/recipes"); // Redirect to recipes list after success
     } catch (error) {
-      console.error("Error creating recipe:", error.response?.data || error.message);
-      alert("Error creating recipe");
+      console.error("❌ Error creating recipe:", error.response?.data || error.message);
+      alert(error.response?.data?.message || "Error creating recipe");
     }
   };
 
-  // Helper function to move to the next step (up to 6)
-  const goNextStep = (currentStep) => {
-    if (step < currentStep + 1) {
-      setStep(currentStep + 1);
+  // Helper function to move to the next step
+  const goNextStep = () => {
+    if (step < 6) {
+      setStep(step + 1);
     }
   };
 
   return (
     <div className="create-recipe-container d-flex justify-content-center align-items-start">
       <div className="create-recipe-box shadow">
-        <h2 className="mb-4 text-center form-heading">Create a New Recipe</h2>
+        <h2 className="mb-4 text-center form-heading">🍽️ Create a New Recipe</h2>
 
         <form onSubmit={handleSubmit}>
           {/* STEP 0: TITLE */}
           {step >= 0 && (
-            <div className="mb-3" onClick={() => goNextStep(0)} style={{ cursor: "pointer" }}>
+            <div className="mb-3">
               <label className="form-label fw-bold">Recipe Title</label>
               <input
                 type="text"
@@ -72,7 +88,7 @@ function CreateRecipe() {
 
           {/* STEP 1: DESCRIPTION */}
           {step >= 1 && (
-            <div className="mb-3" onClick={() => goNextStep(1)} style={{ cursor: "pointer" }}>
+            <div className="mb-3">
               <label className="form-label fw-bold">Short Description</label>
               <textarea
                 className="form-control"
@@ -86,7 +102,7 @@ function CreateRecipe() {
 
           {/* STEP 2: INGREDIENTS */}
           {step >= 2 && (
-            <div className="mb-3" onClick={() => goNextStep(2)} style={{ cursor: "pointer" }}>
+            <div className="mb-3">
               <label className="form-label fw-bold">Ingredients (comma separated)</label>
               <textarea
                 className="form-control"
@@ -100,7 +116,7 @@ function CreateRecipe() {
 
           {/* STEP 3: INSTRUCTIONS */}
           {step >= 3 && (
-            <div className="mb-3" onClick={() => goNextStep(3)} style={{ cursor: "pointer" }}>
+            <div className="mb-3">
               <label className="form-label fw-bold">Instructions</label>
               <textarea
                 className="form-control"
@@ -114,7 +130,7 @@ function CreateRecipe() {
 
           {/* STEP 4: COOKING TIME */}
           {step >= 4 && (
-            <div className="mb-3" onClick={() => goNextStep(4)} style={{ cursor: "pointer" }}>
+            <div className="mb-3">
               <label className="form-label fw-bold">Cooking Time (minutes)</label>
               <input
                 type="number"
@@ -129,7 +145,7 @@ function CreateRecipe() {
 
           {/* STEP 5: IMAGE URL & PREVIEW */}
           {step >= 5 && (
-            <div className="mb-3" onClick={() => goNextStep(5)} style={{ cursor: "pointer" }}>
+            <div className="mb-3">
               <label className="form-label fw-bold">Image URL (optional)</label>
               <input
                 type="text"
@@ -149,7 +165,18 @@ function CreateRecipe() {
           {/* STEP 6: SUBMIT BUTTON */}
           {step >= 6 && (
             <button type="submit" className="btn btn-primary w-100 mt-3 create-btn">
-              Create Recipe
+              ✅ Create Recipe
+            </button>
+          )}
+
+          {/* NEXT BUTTON */}
+          {step < 6 && (
+            <button
+              type="button"
+              className="btn btn-secondary w-100 mt-3 next-btn"
+              onClick={goNextStep}
+            >
+              Next ➡️
             </button>
           )}
         </form>

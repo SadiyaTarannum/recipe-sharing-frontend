@@ -1,0 +1,58 @@
+.container {
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  /* Center and style the heading */
+  h2.text-primary {
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Search bar styling */
+  input.form-control {
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  /* Recipe Card Styling */
+  .card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Recipe Image */
+  .card-img-top {
+    height: 250px; /* Fixed height for uniformity */
+    object-fit: cover; /* Ensures images maintain aspect ratio */
+    border-bottom: 2px solid #ddd;
+  }
+  
+  /* Button Styling */
+  .btn-success {
+    background-color: #28a745;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 0px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838;
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .card-img-top {
+      height: 200px;
+    }
+  }
+  

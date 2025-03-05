@@ -1,0 +1,27 @@
+/* Home.css */
+.hero-section {
+    background-color: #fff5f5;
+    padding: 30px;
+    border-radius: 10px;
+  }
+  
+  .how-it-works {
+    padding: 20px;
+  }
+  
+  .recipe-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .action-buttons {
+    margin-top: 20px;
+  }
+  
+  .interactive-section {
+    background-color: #f0f8ff;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
